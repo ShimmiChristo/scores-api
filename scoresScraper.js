@@ -1,40 +1,37 @@
 const express = require('express'),
-    bodyParser = require('body-parser'),
-    cors = require('cors'),
-    fs = require('fs');
+        bodyParser = require('body-parser'),
+        cors = require('cors'),
+        fs = require('fs'),
+        path = require('path'),
+        router = express.Router(),
+        rp = require('request-promise'),
+        $ = require('cheerio');
 
-const rp = require('request-promise');
-const $ = require('cheerio');
 const url = 'https://www.ncaa.com/brackets/basketball-men/d1';
 
-const app = express();
-    app.use(bodyParser.json());
-    app.use(cors());
-    const port = process.env.PORT || 3000;
-
-    // app.use('/', getScores);
-
-    const server = app.listen(port, function(){
-        console.log('Listening on port ' + port);
-    });
-
-    app.get('/', (req, res) => {
-        fs.readFile(__dirname + 'basketball-scores.html', 'utf8', (err, getScores) => {
-            res.send(getScores);
-        });
-    });
+var app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+// app.get('/', function(req, res){
+//     res.render('basketball-scores');
+// })
 
 
-function getScores() {
+app.listen(3000, function () {
+    console.log('Listening on port 3000')
+  });
+
+  // const games = [];
+  const round1Games = [];
+  const round2Games = [];
+  const round3Games = [];
+  const round4Games = [];
+  const finalGames = [];
+
+// (function getScores() {
 
     rp(url)
     .then(function(html){
-        // const games = [];
-        const round1Games = [];
-        const round2Games = [];
-        const round3Games = [];
-        const round4Games = [];
-        const finalGames = [];
         
         const round1 = $('.round-1', html);
         for (let i =0; i < round1.length; i++) {
@@ -101,20 +98,37 @@ function getScores() {
                 'losingScore': $(final[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
         }
-
+        console.log(finalGames);
+        app.get("/", function(req, res) {
+            res.render("basketball-scores", { finalGames: finalGames});
+        });
+        
+        
     })
     .catch(function(err){
         //handle error
     });
-
-    var finalList = document.createElement('ul');
-    for (let g = 0; g <finalGames.length; g++) {
-        var item = document.createElement('li');
-        item.appendChild(document.createTextNode(finalGames[g]));
-        finalList.appendChild(item);
+    
+    // var finalList = document.createElement('ul');
+    // for (let g = 0; g <finalGames.length; g++) {
+    //     var item = document.createElement('li');
+    //     item.appendChild(document.createTextNode(finalGames[g]));
+    //     finalList.appendChild(item);
         
-    }
-    return finalList;
+    // }
+    // return finalList;
 
-}
+// })();
 
+
+// the task array with initial placeholders for added task
+// var task = ["buy socks", "practise with nodejs"];
+// post route for adding new task
+// app.post('/', function (req, res) {
+//     var newTask = req.body.newtask;
+// //add the new task from the post route into the array
+//     task.push(newTask);
+// //after adding to the array go back to the root route
+//     res.redirect("/");
+// });
+// render the ejs and display added task, task(index.ejs) = task(array)

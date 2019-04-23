@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <script src="./scoresScraper.js"></script>
+    </head>
+    <body>
+        <div class="scores">
+                EJS File
+        </div>
+
+        <% finalGames.map((finalGame)=>{%>
+            <li><%= finalGame.winner %></li>
+          <%}) %>
+
+    </body>
+</html>

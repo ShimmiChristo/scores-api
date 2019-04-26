@@ -28,12 +28,13 @@ app.listen(3000, function () {
   const round4Games = [];
   const finalGames = [];
 
+
 // (function getScores() {
 
     rp(url)
-    .then(function(html){
+    .then(function(html1){
         
-        const round1 = $('.round-1', html);
+        const round1 = $('.round-1', html1);
         for (let i =0; i < round1.length; i++) {
             round1Games.push({
                 'round': 'round-1',
@@ -45,6 +46,11 @@ app.listen(3000, function () {
             })
 
         }
+        return html1;
+    })
+        
+    .then(function(html){
+
 
         const round2 = $('.round-2', html);
         for (let i =0; i < round2.length; i++) {
@@ -59,6 +65,10 @@ app.listen(3000, function () {
 
         }
 
+    })
+        
+    .then(function(html){
+
         const round3 = $('.round-3', html);
         for (let i =0; i < round3.length; i++) {
             round3Games.push({
@@ -70,6 +80,10 @@ app.listen(3000, function () {
                 'losingScore': $(round3[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
         }
+
+    })
+        
+    .then(function(html){
 
         const round4 = $('.round-4', html);
         for (let i =0; i < round4.length; i++) {
@@ -83,6 +97,9 @@ app.listen(3000, function () {
             })
         }
 
+    })
+        
+    .then(function(html){
         const final = $('.center-final-games > .final', html);
         for (let i =0; i < final.length; i++) {
             // var item = document.createElement('li');
@@ -98,16 +115,21 @@ app.listen(3000, function () {
                 'losingScore': $(final[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
         }
-        console.log(finalGames);
-        app.get("/", function(req, res) {
-            res.render("basketball-scores", { finalGames: finalGames});
-        });
+        // return finalGames;
+
+        
+        // app.get("/", function(req, res) {
+        //     res.render("basketball-scores", { finalGames: finalGames});
+        // });
         
         
     })
     .catch(function(err){
         //handle error
     });
+
+
+    console.log(round1Games);
     
     // var finalList = document.createElement('ul');
     // for (let g = 0; g <finalGames.length; g++) {

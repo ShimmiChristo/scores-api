@@ -1,43 +1,56 @@
 <html>
     <head>
         <script src="./scoresScraper.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/style.css" />
     </head>
     <body>
 
-            <div>Round 1 Winners</div>
-            <ul>
-                <% round1Games.map((round1Game)=>{%>
-                    <li><%= round1Game.winner %></li>
-                <%}) %>
-            </ul>
+        <div class="column-container">
+            <div class='column'>
+                <div class="title">Round 1 Winners</div>
+                <ul>
+                    <% round1Games.map((round1Game)=>{%>
+                        <li> <%= round1Game.winner %> <b><%= round1Game.winningScore %> </b>,  <%= round1Game.loser %> <%= round1Game.losingScore %> </li>
+                    <%}) %>
+                </ul>
+            </div>
 
-            <div>Round 2 Winners</div>
-            <ul>
-                <% round2Games.map((round2Game)=>{%>
-                    <li><%= round2Game.winner %></li>
-                <%}) %>
-            </ul>
+            <div class='column'>
+                <div class="title">Round 2 Winners</div>
+                <ul>
+                    <% round2Games.map((round2Game)=>{%>
+                        <li> <%= round2Game.winner %> <b><%= round2Game.winningScore %> </b>,  <%= round2Game.loser %> <%= round2Game.losingScore %> </li>
+                        <%}) %>
+                    </ul>
+            </div>
 
-            <div>Round 3 Winners</div>
+            <div class='column'>
+                    <div class="title">Round 3 Winners</div>
             <ul>
                 <% round3Games.map((round3Game)=>{%>
-                    <li><%= round3Game.winner %></li>
+                    <li> <%= round3Game.winner %> <b><%= round3Game.winningScore %> </b>,  <%= round3Game.loser %> <%= round3Game.losingScore %> </li>
                 <%}) %>
             </ul>
+            </div>
 
-            <div>Round 4 Winners</div>
+            <div class='column'>
+                <div class="title">Round 4 Winners</div>
             <ul>
                 <% round4Games.map((round4Game)=>{%>
-                    <li><%= round4Game.winner %></li>
+                    <li> <%= round4Game.winner %> <b><%= round4Game.winningScore %> </b>,  <%= round4Game.loser %> <%= round4Game.losingScore %> </li>
                 <%}) %>
             </ul>
+            </div>
 
-            <div>Final Four and Championship Winners</div>
-            <ul>
-                <% finalGames.map((roundFinalGame)=>{%>
-                    <li><%= roundFinalGame.winner %></li>
-                <%}) %>
-            </ul>
+            <div class='column'>
+                <div class="title">Final Four and Championship Winners</div>
+                <ul>
+                    <li> <%= finalGames[0].winner %> <b><%= finalGames[0].winningScore %> </b>,  <%= finalGames[0].loser %> <%= finalGames[0].losingScore %> </li>
+                    <li> <%= finalGames[2].winner %> <b><%= finalGames[2].winningScore %> </b>,  <%= finalGames[2].loser %> <%= finalGames[2].losingScore %> </li>
+                    <li> <%= finalGames[1].winner %> <b><%= finalGames[1].winningScore %> </b>,  <%= finalGames[1].loser %> <%= finalGames[1].losingScore %> </li>
+                </ul>
+            </div>
+        </div>
 
     </body>
 </html>

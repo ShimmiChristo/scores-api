@@ -1,0 +1,71 @@
+
+// Flexbox display
+@mixin flexbox($prop) {
+    @if $prop == 'flex' {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    } @else if $prop == 'inline-flex' {
+        display: -webkit-inline-box;
+        display: -moz-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+    }
+  }
+// The 'flex' shorthand
+// - applies to: flex items
+// <positive-number>, initial, auto, or none
+@mixin flex($values) {
+    -webkit-box-flex: $values;
+       -moz-box-flex: $values;
+        -webkit-flex: $values;
+          -ms-flex: $values;
+              flex: $values;
+  }
+  // Flex Flow Direction
+  // - applies to: flex containers
+  // row | row-reverse | column | column-reverse
+  @mixin flex-direction($direction) {
+    -webkit-flex-direction: $direction;
+       -moz-flex-direction: $direction;
+        -ms-flex-direction: $direction;
+            flex-direction: $direction;
+  }
+  // Axis Alignment
+// - applies to: flex containers
+// flex-start | flex-end | center | space-between | space-around | space-evenly
+@mixin justify-content($justify) {
+    -webkit-justify-content: $justify;
+       -moz-justify-content: $justify;
+        -ms-justify-content: $justify;
+            justify-content: $justify;
+              -ms-flex-pack: $justify;
+  }
+
+
+.column-container {
+    @include flexbox(flex);
+    @include justify-content(space-evenly);
+}
+.column {
+    @include flexbox(inline-flex);
+    flex-direction: column;
+
+}
+html, body {
+    font-size: 16px;
+    line-height: 1.4em;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+    margin: 2px;
+}
+.title {
+    font-size: 20px;
+}

@@ -11,6 +11,7 @@ const url = 'https://www.ncaa.com/brackets/basketball-men/d1';
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 // app.get('/', function(req, res){
 //     res.render('basketball-scores');

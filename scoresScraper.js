@@ -21,6 +21,7 @@ app.listen(3000, function () {
     console.log('Listening on port 3000')
   });
 
+
   // const games = [];
   const round1Games = [];
   const round2Games = [];
@@ -28,13 +29,10 @@ app.listen(3000, function () {
   const round4Games = [];
   const finalGames = [];
 
-
-// (function getScores() {
-
-    rp(url)
-    .then(function(html1){
-        
-        const round1 = $('.round-1', html1);
+const getRound1 = function() {
+    return rp(url)
+    .then(function(html){
+        const round1 = $('.round-1 .final', html);
         for (let i =0; i < round1.length; i++) {
             round1Games.push({
                 'round': 'round-1',
@@ -46,13 +44,15 @@ app.listen(3000, function () {
             })
 
         }
-        return html1;
+        return round1Games;
     })
-        
-    .then(function(html){
+}
 
 
-        const round2 = $('.round-2', html);
+const getRound2 = function() {
+    return rp(url)
+    .then(function(html2) {
+        const round2 = $('.round-2 .final', html2);
         for (let i =0; i < round2.length; i++) {
             round2Games.push({
                 'round': 'round-2',
@@ -62,14 +62,14 @@ app.listen(3000, function () {
                 'loser': $(round2[i]).find('.teams').children("div[class='team']").children('.name').text(),
                 'losingScore': $(round2[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
-
         }
-
+        return round2Games;
     })
-        
-    .then(function(html){
-
-        const round3 = $('.round-3', html);
+}
+const getRound3 = function() {
+    return rp(url)
+    .then(function(html) {
+        const round3 = $('.round-3 .final', html);
         for (let i =0; i < round3.length; i++) {
             round3Games.push({
                 'round': 'round-3',
@@ -80,12 +80,12 @@ app.listen(3000, function () {
                 'losingScore': $(round3[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
         }
-
     })
-        
-    .then(function(html){
-
-        const round4 = $('.round-4', html);
+}
+const getRound4 = function() {
+    return rp(url)
+    .then(function(html) {
+        const round4 = $('.round-4 .final', html);
         for (let i =0; i < round4.length; i++) {
             round4Games.push({
                 'round': 'round-4',
@@ -96,10 +96,11 @@ app.listen(3000, function () {
                 'losingScore': $(round4[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
         }
-
     })
-        
-    .then(function(html){
+}
+const getFinalRound = function() {
+    return rp(url)
+    .then(function(html) {
         const final = $('.center-final-games > .final', html);
         for (let i =0; i < final.length; i++) {
             // var item = document.createElement('li');
@@ -115,22 +116,18 @@ app.listen(3000, function () {
                 'losingScore': $(final[i]).find('.teams').children("div[class='team']").children('.score').text()
             })
         }
-        // return finalGames;
-
-        
-        // app.get("/", function(req, res) {
-        //     res.render("basketball-scores", { finalGames: finalGames});
-        // });
-        
-        
     })
+}
+
+Promise.all([getRound1(), getRound2(), getRound3(), getRound4(), getFinalRound()])
+    .then(result => {
+        return result;
+    })
+
     .catch(function(err){
         //handle error
     });
 
-
-    console.log(round1Games);
-    
     // var finalList = document.createElement('ul');
     // for (let g = 0; g <finalGames.length; g++) {
     //     var item = document.createElement('li');
@@ -140,12 +137,16 @@ app.listen(3000, function () {
     // }
     // return finalList;
 
-// })();
+// };
 
 
-// the task array with initial placeholders for added task
+
+
+
+
+//the task array with initial placeholders for added task
 // var task = ["buy socks", "practise with nodejs"];
-// post route for adding new task
+//post route for adding new task
 // app.post('/', function (req, res) {
 //     var newTask = req.body.newtask;
 // //add the new task from the post route into the array
@@ -153,4 +154,16 @@ app.listen(3000, function () {
 // //after adding to the array go back to the root route
 //     res.redirect("/");
 // });
-// render the ejs and display added task, task(index.ejs) = task(array)
+//render the ejs and display added task, task(index.ejs) = task(array)
+app.get("/", function(req, res) {
+    res.render("basketball-scores", { 
+        round1Games: round1Games, 
+        round2Games: round2Games, 
+        round3Games: round3Games, 
+        round4Games: round4Games, 
+        finalGames: finalGames
+    });
+});
+// app.get("/", function(req, res) {
+//     res.render("basketball-scores", { finalGames: finalGames});
+// });

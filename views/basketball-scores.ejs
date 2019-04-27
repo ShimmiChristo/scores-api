@@ -3,13 +3,41 @@
         <script src="./scoresScraper.js"></script>
     </head>
     <body>
-        <div class="scores">
-                EJS File
-        </div>
 
-        <% finalGames.map((finalGame)=>{%>
-            <li><%= finalGame.winner %></li>
-          <%}) %>
+            <div>Round 1 Winners</div>
+            <ul>
+                <% round1Games.map((round1Game)=>{%>
+                    <li><%= round1Game.winner %></li>
+                <%}) %>
+            </ul>
+
+            <div>Round 2 Winners</div>
+            <ul>
+                <% round2Games.map((round2Game)=>{%>
+                    <li><%= round2Game.winner %></li>
+                <%}) %>
+            </ul>
+
+            <div>Round 3 Winners</div>
+            <ul>
+                <% round3Games.map((round3Game)=>{%>
+                    <li><%= round3Game.winner %></li>
+                <%}) %>
+            </ul>
+
+            <div>Round 4 Winners</div>
+            <ul>
+                <% round4Games.map((round4Game)=>{%>
+                    <li><%= round4Game.winner %></li>
+                <%}) %>
+            </ul>
+
+            <div>Final Four and Championship Winners</div>
+            <ul>
+                <% finalGames.map((roundFinalGame)=>{%>
+                    <li><%= roundFinalGame.winner %></li>
+                <%}) %>
+            </ul>
 
     </body>
 </html>

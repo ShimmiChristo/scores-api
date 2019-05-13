@@ -1,9 +1,9 @@
 const express = require('express'),
         bodyParser = require('body-parser'),
         cors = require('cors'),
-        fs = require('fs'),
+        // fs = require('fs'),
         path = require('path'),
-        router = express.Router(),
+        // router = express.Router(),
         rp = require('request-promise'),
         $ = require('cheerio');
 
@@ -13,9 +13,6 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
-// app.get('/', function(req, res){
-//     res.render('basketball-scores');
-// })
 
 
 app.listen(3000, function () {
@@ -23,7 +20,6 @@ app.listen(3000, function () {
   });
 
 
-  // const games = [];
   const round1Games = [];
   const round2Games = [];
   const round3Games = [];
@@ -129,33 +125,6 @@ Promise.all([getRound1(), getRound2(), getRound3(), getRound4(), getFinalRound()
         //handle error
     });
 
-    // var finalList = document.createElement('ul');
-    // for (let g = 0; g <finalGames.length; g++) {
-    //     var item = document.createElement('li');
-    //     item.appendChild(document.createTextNode(finalGames[g]));
-    //     finalList.appendChild(item);
-        
-    // }
-    // return finalList;
-
-// };
-
-
-
-
-
-
-//the task array with initial placeholders for added task
-// var task = ["buy socks", "practise with nodejs"];
-//post route for adding new task
-// app.post('/', function (req, res) {
-//     var newTask = req.body.newtask;
-// //add the new task from the post route into the array
-//     task.push(newTask);
-// //after adding to the array go back to the root route
-//     res.redirect("/");
-// });
-//render the ejs and display added task, task(index.ejs) = task(array)
 app.get("/", function(req, res) {
     res.render("basketball-scores", { 
         round1Games: round1Games, 
@@ -165,6 +134,3 @@ app.get("/", function(req, res) {
         finalGames: finalGames
     });
 });
-// app.get("/", function(req, res) {
-//     res.render("basketball-scores", { finalGames: finalGames});
-// });

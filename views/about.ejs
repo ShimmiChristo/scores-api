@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script src="./scoresScraper.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    </head>
+    <body>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+        <div class="about">
+            <h1>About</h1>
+                <div>
+                    <p>
+                            During the NCAA basketball tournament, I want to know the scores of each games. 
+                            Since NCAA.com does not have an open source API, I decided to scrape the data from their site. 
+                    </p>
+                    <p>
+                            Using this data, I can create a website or web app. Since I am pulling the data dynamically, 
+                            I do not have to update the database after every game.
+                    </p>
+                </div>
+                <ol>
+                    <li>
+                       1. This is the URL being used  to scrape data - <a href="https://www.ncaa.com/brackets/basketball-men/d1/2019">https://www.ncaa.com/brackets/basketball-men/d1/2019</a> 
+                    </li>
+                    <li>
+                        2. Data collected - Scrapes the URL for the NCAA tournament scores. 
+                    </li>
+                    <li>
+                        3. Reason - no public API is available. A more efficient way than copying and pasting 
+                            each score into a table is scraping the HTML and parsing. 
+                    </li>
+                </ol>
+            </div>
+
+       
+    </body>
+</html>

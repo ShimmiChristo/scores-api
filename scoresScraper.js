@@ -134,3 +134,6 @@ app.get("/", function(req, res) {
         finalGames: finalGames
     });
 });
+app.get('/about', function(req, res) {
+    res.render('about', { });
+ });

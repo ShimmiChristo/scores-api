@@ -7,17 +7,31 @@
 
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="default.asp">Home</a></li>
+                <li><a href="news.asp">News</a></li>
+                <li><a href="contact.asp">Contact</a></li>
+                <li><a href="about.asp">About</a></li>
             </ul>
         </nav>
-        <h1>
-            2019 NCAA Basketball Tournament Scores
-        </h1>
+        <div class="about">
+            <h2>About</h2>
+                <ol>
+                    <li>
+                       1. This is the URL being used  to scrape data - https://www.ncaa.com/brackets/basketball-men/d1/2019
+                    </li>
+                    <li>
+                        2. Data collected - Scrapes the URL for the NCAA tournament scores. 
+                    </li>
+                    <li>
+                        3. Reason - no public API is available. A more efficient way than copying and pasting 
+                            each score into a table is scraping the HTML and parsing. 
+                    </li>
+                </ol>
+            </div>
 
         <div class="column-container">
             <div class='column'>
-                <div class="title">Round 1 </div>
+                <div class="title">Round 1 Winners</div>
                 <ul>
                     <% round1Games.map((round1Game)=>{%>
                         <li> <%= round1Game.winner %> <b><%= round1Game.winningScore %> </b>,  <%= round1Game.loser %> <%= round1Game.losingScore %> </li>
@@ -26,7 +40,7 @@
             </div>
 
             <div class='column'>
-                <div class="title">Round 2 </div>
+                <div class="title">Round 2 Winners</div>
                 <ul>
                     <% round2Games.map((round2Game)=>{%>
                         <li> <%= round2Game.winner %> <b><%= round2Game.winningScore %> </b>,  <%= round2Game.loser %> <%= round2Game.losingScore %> </li>
@@ -35,7 +49,7 @@
             </div>
 
             <div class='column'>
-                    <div class="title">Round 3 </div>
+                    <div class="title">Round 3 Winners</div>
             <ul>
                 <% round3Games.map((round3Game)=>{%>
                     <li> <%= round3Game.winner %> <b><%= round3Game.winningScore %> </b>,  <%= round3Game.loser %> <%= round3Game.losingScore %> </li>
@@ -44,7 +58,7 @@
             </div>
 
             <div class='column'>
-                <div class="title">Round 4 </div>
+                <div class="title">Round 4 Winners</div>
             <ul>
                 <% round4Games.map((round4Game)=>{%>
                     <li> <%= round4Game.winner %> <b><%= round4Game.winningScore %> </b>,  <%= round4Game.loser %> <%= round4Game.losingScore %> </li>

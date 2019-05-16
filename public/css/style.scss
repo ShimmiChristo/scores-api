@@ -58,6 +58,7 @@
 html, body {
     font-size: 16px;
     line-height: 1.4em;
+    margin: 0 50px;
 }
 ul {
     padding: 0;
@@ -68,4 +69,17 @@ li {
 }
 .title {
     font-size: 20px;
+}
+nav {
+    border-bottom: 2px solid #333;
+    margin-top: 10px;
+    ul {
+        padding: 0;
+        display: inline-flex;
+    }
+    li {
+        margin: 5px;
+        padding: 5px;
+        font-size: 22px;
+    }
 }

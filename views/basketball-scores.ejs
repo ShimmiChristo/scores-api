@@ -11,6 +11,8 @@
                 <li><a href="/about">About</a></li>
             </ul>
         </nav>
+        <br>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Games" title="Type in a name">
         <h1>
             2019 NCAA Basketball Tournament Scores
         </h1>
@@ -56,11 +58,33 @@
                 <div class="title">Final Four and Championship Winner</div>
                 <ul>
                     <li> <%= finalGames[0].winner %> <b><%= finalGames[0].winningScore %> </b>,  <%= finalGames[0].loser %> <%= finalGames[0].losingScore %> </li>
-                    <li> <%= finalGames[2].winner %> <b><%= finalGames[2].winningScore %> </b>,  <%= finalGames[2].loser %> <%= finalGames[2].losingScore %> </li>
                     <li> <%= finalGames[1].winner %> <b><%= finalGames[1].winningScore %> </b>,  <%= finalGames[1].loser %> <%= finalGames[1].losingScore %> </li>
                 </ul>
             </div>
         </div>
+
+    <script>
+
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.querySelector(".column");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                console.log(li);
+                a = li[i].getElementsByTagName("li")[0];
+                console.log(a);
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        
+    </script>
 
     </body>
 </html>

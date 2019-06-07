@@ -7,7 +7,7 @@ const express = require('express'),
         rp = require('request-promise'),
         $ = require('cheerio');
 
-const url = 'https://www.ncaa.com/brackets/basketball-men/d1';
+const url = 'https://www.ncaa.com/brackets/basketball-men/d1/2019';
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 app.listen(3000, function () {
     console.log('Listening on port 3000')
-  });
+});
 
 
   const round1Games = [];

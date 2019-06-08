@@ -125,7 +125,10 @@ Promise.all([getRound1(), getRound2(), getRound3(), getRound4(), getFinalRound()
         //handle error
     });
 
-app.get("/", function(req, res) {
+app.get('/', function(req, res) {
+    res.render('home', { });
+});
+app.get("/scores", function(req, res) {
     res.render("basketball-scores", { 
         round1Games: round1Games, 
         round2Games: round2Games, 

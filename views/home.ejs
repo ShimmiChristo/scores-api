@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script src="./scoresScraper.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    </head>
+    <body>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/scores">Scores</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <h1>NCAA API Search</h1>
+                <div class="search-bar">
+                    <input type="text" id="myInput" onkeyup="searchGames()" placeholder="Search for Games" title="Type in a name">
+                </div>
+                <div class="search-results">
+
+                </div>
+
+        </div>
+
+        <script>
+            const ncaaAPI = "https://squares.chrisshimmin.com/api/ncaa";
+            const ncaaArr = [];
+            fetch(ncaaAPI)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+
+
+
+            function searchGames() {
+              
+
+
+            }
+                
+        </script>
+
+       
+    </body>
+</html>

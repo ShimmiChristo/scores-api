@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="./scoresScraper.js"></script>
+        <!-- <script src="./scoresScraper.js"></script> -->
         <link rel="stylesheet" type="text/css" href="./css/style.css" />
     </head>
     <body>
@@ -15,10 +15,13 @@
         <div class="search-container">
             <h1>NCAA API Search</h1>
                 <div class="search-bar">
-                    <input type="text" id="myInput" onkeyup="searchGames()" placeholder="Search for Games" title="Type in a name">
+                    <input type="text" id="myInput" placeholder="Search for Games" title="Type in a name">
                 </div>
                 <div class="search-results">
-
+                    <ul class="list">
+                        <li> Filter by team </li>
+                        <li> or score </li>
+                    </ul>
                 </div>
 
         </div>
@@ -26,19 +29,74 @@
         <script>
             const ncaaAPI = "https://squares.chrisshimmin.com/api/ncaa";
             const ncaaArr = [];
+            // let error = Object.assign({}, json, {
+            //     status: response.status,
+            //     statusText: response.statusText
+            // })
+            // return Promise.reject(error);
             fetch(ncaaAPI)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
+            // fetch('https://api.github.com/users/chrissycoyier/repos')
+                 .then(handleResponse)
+                 .then(data => ncaaArr.push(...data))
+                 .catch (error => console.log(error))
 
 
 
-            function searchGames() {
-              
+                 function handleResponse(response) {
+                    let contentType = response.headers.get('content-type')
+                    if (contentType.includes('application/json')) {
+                        return handleJSONResponse(response);
+                    }
+                    else {
+                        throw new Error(`Sorry, content-type ${contentType} not supported`);
+                    }
+                 }
+                 function handleJSONResponse(response) {
+                    return response.json()
+                    .then(json => {
+                        if (response.ok) {
+                            return json
+                        }
+                        else {
+                            return Promise.reject (Object.assign({}, json, {
+                                status: response.status,
+                                statusText: response.statusText
+                            }))
+                        }
+                    })
+                 }
+           
 
+
+            function searchResults() {
+                const searchWord = this.value;
+                for (i = 0; i < ncaaArr.length; i++) {
+                    let regex = new RegExp(searchWord, 'gi');
+                    // console.log(ncaaArr[i]);
+                    ncaaArr[i].filter(info => {
+                        // console.log(info.winner);
+                        console.log(info.winner.match(regex));
+
+                    })
+                    for (j = 0; j < ncaaArr[i].length; j++) {
+                        let objs = ncaaArr[i][j];
+                        // console.log(objs);
+                        // return (
+                            // ncaaArr.filter(info =>{
+                                // console.log(info);
+                            // })
+                        // )
+                    }
+                }
+                // ncaaArr.filter(this.value => {
+                //     console.log(value);
+                // })
 
             }
+
+            const searchBox = document.getElementById('myInput')
+
+            searchBox.addEventListener('keyup', searchResults);
                 
         </script>
 

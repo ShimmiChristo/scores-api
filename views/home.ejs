@@ -15,16 +15,16 @@
         <div class="search-container">
             <h1>NCAA API Search</h1>
                 <div class="search-bar">
-                    <input type="text" id="myInput" placeholder="Search for Games" title="Type in a name">
+                    <input type="text" id="myInput" placeholder="Search for Games" title="Search for Team, Score, Round">
                 </div>
                 <div class="search-results">
                     <ul class="list">
-                        <li class='date'>  </li>
+                        <!-- <li class='date'>  </li>
                         <li class='loser'>  </li>
                         <li class='losingScore'>  </li>
                         <li class='round'>  </li>
                         <li class='winner'>  </li>
-                        <li class='winningScore'>  </li>
+                        <li class='winningScore'>  </li> -->
                     </ul>
                 </div>
 
@@ -33,19 +33,10 @@
         <script>
             const ncaaAPI = "https://squares.chrisshimmin.com/api/ncaa";
             const ncaaArr = [];
-            // let error = Object.assign({}, json, {
-            //     status: response.status,
-            //     statusText: response.statusText
-            // })
-            // return Promise.reject(error);
             fetch(ncaaAPI)
-            // fetch('https://api.github.com/users/chrissycoyier/repos')
                  .then(handleResponse)
-                //  .then(data => console.log(data[0], data[1], data[2], data[3], data[4], data[5]))
                  .then(data => ncaaArr.push(...data[0], ...data[1], ...data[2], ...data[3], ...data[4], ...data[5]))
                  .catch (error => console.log(error))
-
-
 
                  function handleResponse(response) {
                     let contentType = response.headers.get('content-type')
@@ -74,32 +65,33 @@
 
 
             function searchResults(searchWord, arr) {
-                // const searchWord = this.value;
-                    return (arr.filter(info => {
-                        const regex = new RegExp(searchWord, 'gi');
-                        return (info.winner.match(regex));
-                    }))
+                return (arr.filter(info => {
+                    const regex = new RegExp(searchWord, 'gi');
+                    return (info.winner.match(regex) || info.winningScore.match(regex) || info.round.match(regex) || info.loser.match(regex) || info.losingScore.match(regex));
+                }))
             }
 
             function displayResults() {
                 const searchWord = searchResults(this.value, ncaaArr);   
                 const list = document.querySelector('.list');
-                // console.log(searchWord);
-                console.log(document.querySelector('.list li'));
-                const html = searchWord.forEach(element => {
-                    console.log(element);
-                    // for (i = 0; i < searchWord.length; i++) {
-                        // console.log(searchWord[i]);
-                        
-                        // }
+                const regex = new RegExp(searchWord, 'gi');
+
+                const html = searchWord.map(element => {
+                    const winner = element.winner.replace(regex, 'gi');
+                    const loser = element.loser.replace(regex, 'gi');
+                    const winningScore = element.winningScore.replace(regex, 'gi');
+                    const losingScore = element.losingScore.replace(regex, 'gi');
+                    const round = element.round.replace(regex, 'gi');
+                    return `<li> ${round} - ${winner}, ${winningScore}  ${loser}, ${losingScore} </li>`;
                     
-                });
+                }).join('');
                 list.innerHTML = html;
                 
             }
 
             const searchBox = document.getElementById('myInput')
 
+            searchBox.addEventListener('change', displayResults);
             searchBox.addEventListener('keyup', displayResults);
                 
         </script>

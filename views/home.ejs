@@ -19,8 +19,12 @@
                 </div>
                 <div class="search-results">
                     <ul class="list">
-                        <li> Filter by team </li>
-                        <li> or score </li>
+                        <li class='date'>  </li>
+                        <li class='loser'>  </li>
+                        <li class='losingScore'>  </li>
+                        <li class='round'>  </li>
+                        <li class='winner'>  </li>
+                        <li class='winningScore'>  </li>
                     </ul>
                 </div>
 
@@ -37,7 +41,8 @@
             fetch(ncaaAPI)
             // fetch('https://api.github.com/users/chrissycoyier/repos')
                  .then(handleResponse)
-                 .then(data => ncaaArr.push(...data))
+                //  .then(data => console.log(data[0], data[1], data[2], data[3], data[4], data[5]))
+                 .then(data => ncaaArr.push(...data[0], ...data[1], ...data[2], ...data[3], ...data[4], ...data[5]))
                  .catch (error => console.log(error))
 
 
@@ -68,35 +73,34 @@
            
 
 
-            function searchResults() {
-                const searchWord = this.value;
-                for (i = 0; i < ncaaArr.length; i++) {
-                    let regex = new RegExp(searchWord, 'gi');
-                    // console.log(ncaaArr[i]);
-                    ncaaArr[i].filter(info => {
-                        // console.log(info.winner);
-                        console.log(info.winner.match(regex));
+            function searchResults(searchWord, arr) {
+                // const searchWord = this.value;
+                    return (arr.filter(info => {
+                        const regex = new RegExp(searchWord, 'gi');
+                        return (info.winner.match(regex));
+                    }))
+            }
 
-                    })
-                    for (j = 0; j < ncaaArr[i].length; j++) {
-                        let objs = ncaaArr[i][j];
-                        // console.log(objs);
-                        // return (
-                            // ncaaArr.filter(info =>{
-                                // console.log(info);
-                            // })
-                        // )
-                    }
-                }
-                // ncaaArr.filter(this.value => {
-                //     console.log(value);
-                // })
-
+            function displayResults() {
+                const searchWord = searchResults(this.value, ncaaArr);   
+                const list = document.querySelector('.list');
+                // console.log(searchWord);
+                console.log(document.querySelector('.list li'));
+                const html = searchWord.forEach(element => {
+                    console.log(element);
+                    // for (i = 0; i < searchWord.length; i++) {
+                        // console.log(searchWord[i]);
+                        
+                        // }
+                    
+                });
+                list.innerHTML = html;
+                
             }
 
             const searchBox = document.getElementById('myInput')
 
-            searchBox.addEventListener('keyup', searchResults);
+            searchBox.addEventListener('keyup', displayResults);
                 
         </script>
 

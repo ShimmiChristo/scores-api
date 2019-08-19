@@ -1,9 +1,7 @@
 const express = require('express'),
         bodyParser = require('body-parser'),
         cors = require('cors'),
-        // fs = require('fs'),
         path = require('path'),
-        // router = express.Router(),
         rp = require('request-promise'),
         $ = require('cheerio');
 
@@ -11,7 +9,7 @@ const url = 'https://www.ncaa.com/brackets/basketball-men/d1/2019';
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/ncaa/', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 
@@ -125,10 +123,10 @@ Promise.all([getRound1(), getRound2(), getRound3(), getRound4(), getFinalRound()
         //handle error
     });
 
-app.get('/', function(req, res) {
+app.get('/ncaa/', function(req, res) {
     res.render('home', { });
 });
-app.get("/scores", function(req, res) {
+app.get("/ncaa/scores", function(req, res) {
     res.render("basketball-scores", { 
         round1Games: round1Games, 
         round2Games: round2Games, 
@@ -137,6 +135,6 @@ app.get("/scores", function(req, res) {
         finalGames: finalGames
     });
 });
-app.get('/about', function(req, res) {
+app.get('/ncaa/about', function(req, res) {
     res.render('about', { });
  });
